@@ -5,7 +5,7 @@ from stackcite.api import testing
 
 class APISchemaTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         from .. import APISchema
@@ -54,7 +54,7 @@ class APISchemaTests(unittest.TestCase):
 
 class APIDocumentSchemaTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         from .. import schema
@@ -86,7 +86,7 @@ class APIDocumentSchemaTests(unittest.TestCase):
 
 class APICollectionSchemaTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         self.schema = testing.mock.MockDocumentSchema()

@@ -1,0 +1,12 @@
+{
+  "valid_keys": [
+    "b91fbccaf23128eaa60b0adaeb72da05143966c63ffb1fc96aef3868",
+    "0296bb7780a3deaf1312a7b033f76bfdda4808c76df8039bfc939f77",
+    "427c65dda40e5594d6ad80402cf6545b8c559e0bd38bb83a982c55c0"
+  ],
+  "invalid_keys": [
+    "b91fbccaf23128eaa60b0adaeb72da05143966c63ffb1fc96aef38",
+    "0296b%7780a_deaf1312a7b033f76bfdda4808&76df*039bfc939f77",
+    "427c65dda40e5594d6ad80402cf6545b8c559e0bd38bb83a982c55c023"
+  ]
+}

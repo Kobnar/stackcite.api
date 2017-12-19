@@ -3,7 +3,7 @@ from stackcite.api import testing
 
 class APIExceptionViewsTestCase(testing.views.ExceptionViewTestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     from ..api import APIExceptionViews
     VIEW_CLASS = APIExceptionViews

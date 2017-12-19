@@ -1,0 +1,14 @@
+{
+  "valid_guids": [
+    "5697a8e530f1932f48cb5efe",
+    "5697a8e530f1932f48cb5eff",
+    "5697a8e530f1932f48cb5f00",
+    "5697a8e530f1932f48cb5f01",
+    "5697a8e530f1932f48cb5f02"
+  ],
+  "invalid_guids": [
+    "badId",
+    "5697a8e530f1932f48cb5efea",
+    "5697a8e530f1932f48cb5ef"
+  ]
+}

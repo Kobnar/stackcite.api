@@ -5,7 +5,7 @@ from stackcite.api import testing
 
 class GroupValidatorTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         from ..groups import GroupValidator

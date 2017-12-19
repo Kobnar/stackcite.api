@@ -5,7 +5,7 @@ from stackcite.api import testing
 
 class SerializableResourceTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def test_undefined_schema_raises_exception(self):
         """SerializableResource.schema() raises exception if no schema is set

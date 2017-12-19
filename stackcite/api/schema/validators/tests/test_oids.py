@@ -5,7 +5,7 @@ from stackcite.api import testing
 
 class ObjectIdValidatorTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         from ..oids import ObjectIdValidator

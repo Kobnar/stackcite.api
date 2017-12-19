@@ -3,7 +3,7 @@ import mongoengine
 from mongoengine import context_managers, InvalidDocumentError
 
 from stackcite import data as db
-from stackcite.data.validators import keys
+from stackcite.api.validators import keys
 
 
 def get_token(request):

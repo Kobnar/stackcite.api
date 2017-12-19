@@ -1,0 +1,19 @@
+{
+  "valid_usernames": [
+    "abc",
+    "sgt_ludwig",
+    "Sgt_ludwig",
+    "aeris_app",
+    "estuche96",
+    "PoloRoFormacion",
+    "12leading_number",
+    "HarryPotterIsAClownAndSoIsFrank"
+  ],
+  "invalid_usernames": [
+    "AnInsanelyLongNameThatShouldNotBeAllowedBecauseWTF",
+    "White space",
+    "New\nLine",
+    "Sy^mb@l$",
+    "Fart Man"
+  ]
+}

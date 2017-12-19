@@ -8,14 +8,14 @@ import os
 import mongoengine
 
 
-class BaseTestLayer(object):
+class UnitTestLayer(object):
     """
     A base test layer for the Stackcite API. Works well with any unit tests that
     do not require any special setup or teardown prociedures.
     """
 
 
-class MongoTestLayer(BaseTestLayer):
+class MongoTestLayer(UnitTestLayer):
     """
     An integration test layer for working with a live MongoDB test database.
     Any tests performed within this layer will be able to connect with and

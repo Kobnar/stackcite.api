@@ -5,7 +5,7 @@ from stackcite.api import testing
 
 class PasswordValidatorTests(unittest.TestCase):
 
-    layer = testing.layers.BaseTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
         from ..passwords import PasswordValidator
