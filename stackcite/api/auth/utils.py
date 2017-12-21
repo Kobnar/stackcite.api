@@ -1,9 +1,18 @@
+import os
+import hashlib
 import mongoengine
 
 from mongoengine import context_managers, InvalidDocumentError
 
 from stackcite import data as db
 from stackcite.api.validators import keys
+
+
+def gen_key():
+    """
+    Generates a cryptographic key used for API Tokens and account confirmation.
+    """
+    return hashlib.sha224(os.urandom(128)).hexdigest()
 
 
 def get_token(request):
