@@ -1,8 +1,11 @@
-from stackcite.api.config.auth import (
-    GROUP_CHOICES,
-    GROUPS,
-    USERS, STAFF, ADMIN
-)
+from stackcite.api.config import auth as _auth
 
-from .utils import get_token, get_user
+from .utils import gen_key, get_token, get_user
 from .policies import AuthTokenAuthenticationPolicy
+
+
+GROUP_CHOICES = _auth.GROUP_CHOICES
+GROUPS = _auth.GROUPS
+USERS = _auth.USERS
+STAFF = _auth.STAFF
+ADMIN = _auth.ADMIN
