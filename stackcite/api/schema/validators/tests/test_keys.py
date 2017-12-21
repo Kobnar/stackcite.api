@@ -15,7 +15,7 @@ class AuthTokenKeyValidatorTests(unittest.TestCase):
         """AuthTokenKeyValidator raises exception for invalid keys
         """
         from marshmallow import ValidationError
-        invalid_keys = testing.data.invalid_keys()
+        invalid_keys = testing.data.validation.invalid_keys()
         for key in invalid_keys:
             with (self.assertRaises(ValidationError)):
                 self.validator(key)
@@ -24,7 +24,7 @@ class AuthTokenKeyValidatorTests(unittest.TestCase):
         """AuthTokenKeyValidator does not raise exception for valid keys
         """
         from marshmallow import ValidationError
-        valid_keys = testing.data.valid_keys()
+        valid_keys = testing.data.validation.valid_keys()
         for key in valid_keys:
             try:
                 self.validator(key)

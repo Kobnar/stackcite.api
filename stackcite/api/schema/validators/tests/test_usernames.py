@@ -15,7 +15,7 @@ class UsernameValidatorTests(unittest.TestCase):
         """UsernameValidator raises exception for invalid usernames
         """
         from marshmallow import ValidationError
-        invalid_usernames = testing.data.invalid_usernames()
+        invalid_usernames = testing.data.validation.invalid_usernames()
         for username in invalid_usernames:
             with (self.assertRaises(ValidationError)):
                 self.validator(username)
@@ -24,7 +24,7 @@ class UsernameValidatorTests(unittest.TestCase):
         """UsernameValidator does not raise exception for valid usernames
         """
         from marshmallow import ValidationError
-        valid_usernames = testing.data.valid_usernames()
+        valid_usernames = testing.data.validation.valid_usernames()
         for username in valid_usernames:
             try:
                 self.validator(username)

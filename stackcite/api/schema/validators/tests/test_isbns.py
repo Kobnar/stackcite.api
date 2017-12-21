@@ -15,7 +15,7 @@ class ISBN10ValidatorTests(unittest.TestCase):
         """ISBN10Validator raises exception for invalid ISBNs
         """
         from marshmallow import ValidationError
-        invalid_isbns = testing.data.invalid_isbns()
+        invalid_isbns = testing.data.validation.invalid_isbns()
         for isbn in invalid_isbns:
             with self.assertRaises(ValidationError):
                 self.validator(isbn)
@@ -24,7 +24,7 @@ class ISBN10ValidatorTests(unittest.TestCase):
         """ISBN10Validator does not raise exception for valid ISBN-10s
         """
         from marshmallow import ValidationError
-        valid_isbn10s = testing.data.valid_isbn10s()
+        valid_isbn10s = testing.data.validation.valid_isbn10s()
         for isbn10 in valid_isbn10s:
             try:
                 self.validator(isbn10)
@@ -45,7 +45,7 @@ class ISBN13ValidatorTests(unittest.TestCase):
         """ISBN13Validator raises exception for invalid ISBNs
         """
         from marshmallow import ValidationError
-        invalid_isbns = testing.data.invalid_isbns()
+        invalid_isbns = testing.data.validation.invalid_isbns()
         for isbn in invalid_isbns:
             with self.assertRaises(ValidationError):
                 self.validator(isbn)
@@ -54,7 +54,7 @@ class ISBN13ValidatorTests(unittest.TestCase):
         """ISBN13Validator does not raise exception for valid ISBN-13s
         """
         from marshmallow import ValidationError
-        valid_isbn13s = testing.data.valid_isbn13s()
+        valid_isbn13s = testing.data.validation.valid_isbn13s()
         for isbn13 in valid_isbn13s:
             try:
                 self.validator(isbn13)

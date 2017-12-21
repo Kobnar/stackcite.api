@@ -15,7 +15,7 @@ class ObjectIdValidatorTests(unittest.TestCase):
         """ObjectIdValidator raises exception for invalid ObjectIds
         """
         from marshmallow import ValidationError
-        invalid_oids = testing.data.invalid_object_ids()
+        invalid_oids = testing.data.validation.invalid_guids()
         for oid in invalid_oids:
             with (self.assertRaises(ValidationError)):
                 self.validator(oid)
@@ -24,7 +24,7 @@ class ObjectIdValidatorTests(unittest.TestCase):
         """ObjectIdValidator does not raise exception for valid ObjectIds
         """
         from marshmallow import ValidationError
-        valid_oids = testing.data.valid_object_ids()
+        valid_oids = testing.data.validation.valid_guids()
         for oid in valid_oids:
             try:
                 self.validator(oid)

@@ -93,7 +93,7 @@ class PasswordFieldTests(unittest.TestCase):
     def test_deserialize_accepts_valid_string(self):
         """PasswordField accepts a valid ObjectId string
         """
-        valid_passwords = testing.data.valid_passwords()
+        valid_passwords = testing.data.validation.valid_passwords()
         for password in valid_passwords:
             result = self.field.deserialize(password)
             self.assertEqual(password, result)
@@ -101,7 +101,7 @@ class PasswordFieldTests(unittest.TestCase):
     def test_deserialize_raises_exception_for_invalid_string(self):
         """PasswordField raises exception for an invalid string
         """
-        invalid_passwords = testing.data.invalid_passwords()
+        invalid_passwords = testing.data.validation.invalid_passwords()
         from marshmallow import ValidationError
         for password in invalid_passwords:
             msg = 'Invalid password passed validation: {}'.format(password)
@@ -156,7 +156,7 @@ class UsernameFieldTests(unittest.TestCase):
     def test_deserialize_accepts_valid_string(self):
         """UsernameField accepts a valid ObjectId string
         """
-        valid_usernames = testing.data.valid_usernames()
+        valid_usernames = testing.data.validation.valid_usernames()
         for username in valid_usernames:
             result = self.field.deserialize(username)
             self.assertEqual(username, result)
@@ -164,7 +164,7 @@ class UsernameFieldTests(unittest.TestCase):
     def test_deserialize_raises_exception_for_invalid_string(self):
         """UsernameField raises exception for an invalid string
         """
-        invalid_usernames = testing.data.invalid_usernames()
+        invalid_usernames = testing.data.validation.invalid_usernames()
         from marshmallow import ValidationError
         for username in invalid_usernames:
             msg = 'Invalid username passed validation: {}'.format(username)

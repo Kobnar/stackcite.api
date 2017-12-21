@@ -15,7 +15,7 @@ class PasswordValidatorTests(unittest.TestCase):
         """PasswordValidator raises exception for invalid passwords
         """
         from marshmallow import ValidationError
-        invalid_passwords = testing.data.invalid_passwords()
+        invalid_passwords = testing.data.validation.invalid_passwords()
         for password in invalid_passwords:
             with (self.assertRaises(ValidationError)):
                 self.validator(password)
@@ -24,7 +24,7 @@ class PasswordValidatorTests(unittest.TestCase):
         """PasswordValidator does not raise exception for valid passwords
         """
         from marshmallow import ValidationError
-        valid_passwords = testing.data.valid_passwords()
+        valid_passwords = testing.data.validation.valid_passwords()
         for password in valid_passwords:
             try:
                 self.validator(password)
