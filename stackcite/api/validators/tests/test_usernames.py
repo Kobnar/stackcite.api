@@ -10,7 +10,7 @@ class ValidateUsernameUnitTests(unittest.TestCase):
     def test_good_usernames_return_username(self):
         """'validate_username()' accepts good usernames
         """
-        good_usernames = testing.data.valid_usernames()
+        good_usernames = testing.data.validation.valid_usernames()
         from ..usernames import validate_username
         for username in good_usernames:
             username_out = validate_username(username)
@@ -19,7 +19,7 @@ class ValidateUsernameUnitTests(unittest.TestCase):
     def test_bad_usernames_return_none(self):
         """'validate_username()' rejects bad usernames
         """
-        bad_usernames = testing.data.invalid_usernames()
+        bad_usernames = testing.data.validation.invalid_usernames()
         from ..usernames import validate_username
         for username in bad_usernames:
             username_out = validate_username(username)

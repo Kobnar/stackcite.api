@@ -10,7 +10,7 @@ class ValidateObjectIdTests(unittest.TestCase):
     def test_valid_ids_return_object_id_instance(self):
         """validate_objectid() returns an instance of ObjectId with a valid string
         """
-        good_object_ids = testing.data.valid_object_ids()
+        good_object_ids = testing.data.validation.valid_guids()
         from ..oids import validate_objectid
         from bson import ObjectId
         for id_str in good_object_ids:
@@ -20,7 +20,7 @@ class ValidateObjectIdTests(unittest.TestCase):
     def test_valid_ids_return_same_object_id(self):
         """validate_objectid() returns an instance of ObjectId with the same valid string
         """
-        good_object_ids = testing.data.valid_object_ids()
+        good_object_ids = testing.data.validation.valid_guids()
         from ..oids import validate_objectid
         from bson import ObjectId
         for id_str in good_object_ids:
@@ -31,7 +31,7 @@ class ValidateObjectIdTests(unittest.TestCase):
     def test_invalid_ids_return_none(self):
         """validate_objectid() returns `None` for invalid ObjectId strings
         """
-        bad_object_ids = testing.data.invalid_object_ids()
+        bad_object_ids = testing.data.validation.invalid_guids()
         from ..oids import validate_objectid
         for id_str in bad_object_ids:
             result = validate_objectid(id_str)

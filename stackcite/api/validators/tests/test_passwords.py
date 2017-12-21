@@ -10,7 +10,7 @@ class ValidatePasswordUnitTests(unittest.TestCase):
     def test_good_passwords_return_password(self):
         """'validate_password()' accepts good passwords
         """
-        good_passwords = testing.data.valid_passwords()
+        good_passwords = testing.data.validation.valid_passwords()
         from ..passwords import validate_password
         for password in good_passwords:
             password_out = validate_password(password)
@@ -19,7 +19,7 @@ class ValidatePasswordUnitTests(unittest.TestCase):
     def test_bad_passwords_return_none(self):
         """'validate_password()' rejects bad passwords
         """
-        bad_passwords = testing.data.invalid_passwords()
+        bad_passwords = testing.data.validation.invalid_passwords()
         from ..passwords import validate_password
         for password in bad_passwords:
             password_out = validate_password(password)

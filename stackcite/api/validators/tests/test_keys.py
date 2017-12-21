@@ -10,7 +10,7 @@ class ValidateKeyUnitTests(unittest.TestCase):
     def test_good_keys_return_key(self):
         """'validate_key()' accepts good keys
         """
-        good_keys = testing.data.valid_keys()
+        good_keys = testing.data.validation.valid_keys()
         from ..keys import validate_key
         for key in good_keys:
             key_out = validate_key(key)
@@ -19,7 +19,7 @@ class ValidateKeyUnitTests(unittest.TestCase):
     def test_bad_keys_return_none(self):
         """'validate_key()' rejects bad keys
         """
-        bad_keys = testing.data.invalid_keys()
+        bad_keys = testing.data.validation.invalid_keys()
         from ..keys import validate_key
         for key in bad_keys:
             key_out = validate_key(key)
