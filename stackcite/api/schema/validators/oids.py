@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.oids import validate_objectid
+from stackcite.api.validators.oids import validate_objectid
 
 
 class ObjectIdValidator(validate.Validator):

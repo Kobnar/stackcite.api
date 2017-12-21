@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.keys import validate_key
+from stackcite.api.validators.keys import validate_key
 
 
 class AuthTokenKeyValidator(validate.Validator):

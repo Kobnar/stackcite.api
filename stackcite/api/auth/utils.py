@@ -4,7 +4,7 @@ import mongoengine
 
 from mongoengine import context_managers, InvalidDocumentError
 
-from stackcite import data as db
+# from stackcite import data as db
 from stackcite.api.validators import keys
 
 
@@ -26,7 +26,8 @@ def get_token(request):
     try:
         auth_type, key = request.authorization
         if auth_type.lower() == 'key' and keys.validate_key(key):
-            token = db.AuthToken.objects.get(_key=key)
+            token = None
+            # token = db.AuthToken.objects.get(_key=key)
             return token
     except (ValueError, TypeError, InvalidDocumentError):
         return None

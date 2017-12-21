@@ -1,6 +1,11 @@
-from . import utils
+import os
+
+from stackcite.api import utils
 
 
-GROUP_CHOICES = utils.load_data('auth/groups.json')
+_DIR = os.path.dirname(__file__)
+
+
+GROUP_CHOICES = utils.load_json_file(_DIR, 'groups.json')
 GROUPS = [k for k, v in GROUP_CHOICES]
 USERS, STAFF, ADMIN = GROUPS

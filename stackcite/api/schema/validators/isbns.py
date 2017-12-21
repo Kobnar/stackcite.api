@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.isbns import validate_isbn10, validate_isbn13
+from stackcite.api.validators.isbns import validate_isbn10, validate_isbn13
 
 
 class ISBN10Validator(validate.Validator):

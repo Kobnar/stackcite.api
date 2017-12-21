@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.usernames import validate_username
+from stackcite.api.validators.usernames import validate_username
 
 
 class UsernameValidator(validate.Validator):

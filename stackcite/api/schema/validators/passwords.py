@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.passwords import validate_password
+from stackcite.api.validators.passwords import validate_password
 
 
 class PasswordValidator(validate.Validator):

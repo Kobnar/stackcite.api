@@ -1,6 +1,6 @@
 from marshmallow import validate
 
-from stackcite.data.validators.groups import validate_group
+from stackcite.api.validators.groups import validate_group
 
 
 class GroupValidator(validate.Validator):
