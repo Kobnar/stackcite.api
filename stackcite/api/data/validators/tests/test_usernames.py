@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class UsernameValidatorUnitTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class UsernameValidatorUnitTests(unittest.TestCase):
     def test_valid_usernames_pass(self):
         """UsernameDataValidator does nothing for valid usernames
         """
-        good_usernames = testing.data.valid_usernames()
+        good_usernames = testing.data.validation.valid_usernames()
         from ..exceptions import ValidationError
         for uri in good_usernames:
             try:
@@ -25,7 +25,7 @@ class UsernameValidatorUnitTests(unittest.TestCase):
     def test_invalid_usernames_fail(self):
         """UsernameDataValidator raises exception for invalid usernames
         """
-        bad_usernames = testing.data.invalid_usernames()
+        bad_usernames = testing.data.validation.invalid_usernames()
         from ..exceptions import ValidationError
         for uri in bad_usernames:
             with self.assertRaises(ValidationError):

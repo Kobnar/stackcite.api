@@ -1,4 +1,4 @@
-import re
+from stackcite.api import validators
 
 from . import exceptions
 
@@ -15,5 +15,5 @@ class PasswordValidator(object):
             self.msg = msg
 
     def __call__(self, password):
-        if not (isinstance(password, str) and validate_password(password)):
+        if not (isinstance(password, str) and validators.validate_password(password)):
             raise exceptions.ValidationError(self.msg.format(password))

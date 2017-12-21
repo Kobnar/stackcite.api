@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class ValidationErrorTests(unittest.TestCase):

@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class ISBNValidatorTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class ISBNValidatorTests(unittest.TestCase):
     def test_valid_isbn10s_pass(self):
         """ISBNDataValidator does nothing for valid ISBN-10s
         """
-        valid_isbn_10s = testing.data.valid_isbn10s()
+        valid_isbn_10s = testing.data.validation.valid_isbn10s()
         from ..exceptions import ValidationError
         for isbn in valid_isbn_10s:
             try:
@@ -25,7 +25,7 @@ class ISBNValidatorTests(unittest.TestCase):
     def test_valid_isbn13s_pass(self):
         """ISBNDataValidator does nothing for valid ISBN-13s
         """
-        valid_isbn13s = testing.data.valid_isbn13s()
+        valid_isbn13s = testing.data.validation.valid_isbn13s()
         from ..exceptions import ValidationError
         for isbn in valid_isbn13s:
             try:
@@ -36,7 +36,7 @@ class ISBNValidatorTests(unittest.TestCase):
     def test_invalid_isbns_fail(self):
         """ISBNDataValidator raises exception for invalid ISBNs
         """
-        invalid_isbns = testing.data.invalid_isbns()
+        invalid_isbns = testing.data.validation.invalid_isbns()
         from ..exceptions import ValidationError
         for isbn in invalid_isbns:
             with self.assertRaises(ValidationError):

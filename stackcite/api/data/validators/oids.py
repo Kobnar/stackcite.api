@@ -1,5 +1,4 @@
-from bson import ObjectId
-from bson.errors import InvalidId
+from stackcite.api import validators
 
 from . import exceptions
 
@@ -18,5 +17,5 @@ class ObjectIdValidator(object):
             self.msg = msg
 
     def __call__(self, object_id):
-        if not (isinstance(object_id, str) and validate_objectid(object_id)):
+        if not (isinstance(object_id, str) and validators.validate_objectid(object_id)):
             raise exceptions.ValidationError(self.msg.format(object_id))

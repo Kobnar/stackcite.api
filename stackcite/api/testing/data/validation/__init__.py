@@ -14,8 +14,12 @@ def invalid_guids():
     return utils.load_json_file(_DIR, 'guids.json')['invalid_guids']
 
 
-def valid_isbns():
-    return utils.load_json_file(_DIR, 'isbns.json')['valid_isbns']
+def valid_isbn10s():
+    return utils.load_json_file(_DIR, 'isbns.json')['valid_isbn10s']
+
+
+def valid_isbn13s():
+    return utils.load_json_file(_DIR, 'isbns.json')['valid_isbn13s']
 
 
 def invalid_isbns():

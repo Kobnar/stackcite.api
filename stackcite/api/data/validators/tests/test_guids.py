@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class ObjectIdValidatorTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class ObjectIdValidatorTests(unittest.TestCase):
     def test_valid_ids_pass(self):
         """ObjectIdDataValidator does nothing for valid passwords
         """
-        good_object_ids = testing.data.valid_object_ids()
+        good_object_ids = testing.data.validation.valid_guids()
         from ..exceptions import ValidationError
         for id_str in good_object_ids:
             try:
@@ -25,7 +25,7 @@ class ObjectIdValidatorTests(unittest.TestCase):
     def test_invalid_ids_fail(self):
         """ObjectIdDataValidator raises exception for invalid passwords
         """
-        bad_object_ids = testing.data.invalid_object_ids()
+        bad_object_ids = testing.data.validation.invalid_guids()
         from ..exceptions import ValidationError
         for id_str in bad_object_ids:
             with self.assertRaises(ValidationError):

@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class KeyValidatorUnitTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class KeyValidatorUnitTests(unittest.TestCase):
     def test_valid_keys_pass(self):
         """KeyValidator does nothing for valid keys
         """
-        good_keys = testing.data.valid_keys()
+        good_keys = testing.data.validation.valid_keys()
         from ..exceptions import ValidationError
         for uri in good_keys:
             try:
@@ -25,7 +25,7 @@ class KeyValidatorUnitTests(unittest.TestCase):
     def test_invalid_keys_fail(self):
         """KeyValidator raises exception for invalid keys
         """
-        bad_keys = testing.data.invalid_keys()
+        bad_keys = testing.data.validation.invalid_keys()
         from ..exceptions import ValidationError
         for uri in bad_keys:
             with self.assertRaises(ValidationError):

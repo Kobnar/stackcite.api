@@ -1,3 +1,5 @@
+from stackcite.api import validators
+
 from . import exceptions
 
 
@@ -13,5 +15,5 @@ class GroupValidator(object):
             self.msg = msg
 
     def __call__(self, group):
-        if not (isinstance(group, str) and validate_group(group)):
+        if not (isinstance(group, str) and validators.validate_group(group)):
             raise exceptions.ValidationError(self.msg.format(group))

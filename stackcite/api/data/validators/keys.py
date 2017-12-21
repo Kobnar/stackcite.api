@@ -1,4 +1,4 @@
-import re
+from stackcite.api import validators
 
 from . import exceptions
 
@@ -15,5 +15,5 @@ class KeyValidator(object):
             self.msg = msg
 
     def __call__(self, key):
-        if not (isinstance(key, str) and validate_key(key)):
+        if not (isinstance(key, str) and validators.validate_key(key)):
             raise exceptions.ValidationError(self.msg.format(key))

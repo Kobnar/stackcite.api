@@ -1,5 +1,7 @@
 from .exceptions import ValidationError
 
+from stackcite.api import validators
+
 
 class ISBNValidator(object):
     """
@@ -14,5 +16,5 @@ class ISBNValidator(object):
             self.msg = msg
 
     def __call__(self, isbn):
-        if not (isinstance(isbn, str) and validate_isbn(isbn)):
+        if not (isinstance(isbn, str) and validators.validate_isbn(isbn)):
             raise ValidationError(self.msg.format(isbn))

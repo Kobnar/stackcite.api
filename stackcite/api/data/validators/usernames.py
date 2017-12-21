@@ -1,3 +1,5 @@
+from stackcite.api import validators
+
 from . import exceptions
 
 
@@ -13,5 +15,5 @@ class UsernameValidator(object):
             self.msg = msg
 
     def __call__(self, username):
-        if not (isinstance(username, str) and validate_username(username)):
+        if not (isinstance(username, str) and validators.validate_username(username)):
             raise exceptions.ValidationError(self.msg.format(username))

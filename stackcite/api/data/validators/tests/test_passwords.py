@@ -1,6 +1,6 @@
 import unittest
 
-from stackcite.data import testing
+from stackcite.api import testing
 
 
 class PasswordValidatorUnitTests(unittest.TestCase):
@@ -14,7 +14,7 @@ class PasswordValidatorUnitTests(unittest.TestCase):
     def test_valid_passwords_pass(self):
         """PasswordDataValidator does nothing for valid passwords
         """
-        good_passwords = testing.data.valid_passwords()
+        good_passwords = testing.data.validation.valid_passwords()
         from ..exceptions import ValidationError
         for uri in good_passwords:
             try:
@@ -25,7 +25,7 @@ class PasswordValidatorUnitTests(unittest.TestCase):
     def test_invalid_passwords_fail(self):
         """PasswordDataValidator raises exception for invalid passwords
         """
-        bad_passwords = testing.data.invalid_passwords()
+        bad_passwords = testing.data.validation.invalid_passwords()
         from ..exceptions import ValidationError
         for uri in bad_passwords:
             with self.assertRaises(ValidationError):
