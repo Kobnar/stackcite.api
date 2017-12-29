@@ -1,6 +1,16 @@
 from pyramid import httpexceptions
 
 
+class APICreated(httpexceptions.HTTPCreated):
+    """
+    Subclass of :class:`~HTTPCreated` used to raise HTTP exceptions within
+    the API instead of forwarding the user to a front-end styled exception
+    page.
+
+    code: 201, title: Created
+    """
+
+
 class APINoContent(httpexceptions.HTTPNoContent):
     """
     Subclass of :class:`~HTTPNoContent` used to raise HTTP exceptions within
