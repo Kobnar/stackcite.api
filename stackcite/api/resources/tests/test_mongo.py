@@ -277,11 +277,13 @@ class DocumentResourceTestCase(MockResourceTestCase):
         self.assertIsNone(result.number)
 
     def test_update_returns_true(self):
-        """DocumentResource.update() returns `True` if update was successful
+        """DocumentResource.update() returns document if successful
         """
         update = {'name': 'new name'}
-        result = self.doc_rec.update(update)
-        self.assertTrue(result)
+        expected = str(self.doc_rec.id)
+        output = self.doc_rec.update(update)
+        result = str(output.id)
+        self.assertEqual(expected, result)
 
     def test_update_saves_to_mongodb(self):
         """DocumentResource.update() saves changes to MongoDB
@@ -303,11 +305,10 @@ class DocumentResourceTestCase(MockResourceTestCase):
             bad_doc_rec.update(update)
 
     def test_update_raises_exception_if_data_is_invalid(self):
-        """DocumentResource.update() raises ValidationError with invalid models
+        """DocumentResource.update() raises ValueError with invalid number
         """
-        update = {'number': 'invalid number'}
-        from mongoengine import ValidationError
-        with self.assertRaises(ValidationError):
+        update = {'number': 'invalid_number'}
+        with self.assertRaises(ValueError):
             self.doc_rec.update(update)
 
     def test_delete_removes_from_mongodb(self):

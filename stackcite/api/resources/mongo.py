@@ -77,8 +77,8 @@ class DocumentResource(index.IndexResource):
         assert isinstance(data, dict)
 
         document = DocumentResource.retrieve(self)
-        document.deserialize(data)
-        document.save(cascade=True)
+        document.update(**data)
+        document.reload()
         return document
 
     def delete(self):
@@ -157,9 +157,8 @@ class CollectionResource(index.IndexResource):
         """
         assert isinstance(data, dict)
 
-        document = self.collection()
-        document.deserialize(data)
-        document.save(cascade=True)
+        document = self.collection(**data)
+        document.save()
         return document
 
     def retrieve(self, query=None, fields=None, limit=100, skip=0):
