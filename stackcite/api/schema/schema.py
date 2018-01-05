@@ -40,7 +40,7 @@ class APISchema(Schema):
 class APIDocumentSchema(APISchema):
     """
     A base schema for (de)serializing documents. Each collection class should
-    have its own sub-class of :class:`~APIDocumentSchema` to (de)serialize data
+    have its own sub-class of :class:`~APIDocumentSchema` to (de)serialize models
     and objects.
     """
 

@@ -1,11 +1,11 @@
 import mongoengine
 
-from stackcite.api import data
+from stackcite.api import models
 
 
-class MockDocument(data.IDocument):
+class MockDocument(models.IDocument):
     """
-    Provides a very basic data model to perform integration tests with MongoDB.
+    Provides a very basic models model to perform integration tests with MongoDB.
     This class can be sub-classed for specific test cases that require
     additional fields or methods.
 

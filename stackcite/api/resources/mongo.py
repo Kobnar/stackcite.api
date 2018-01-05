@@ -17,15 +17,15 @@ class DocumentResource(index.IndexResource):
 
     :class:`~DocumentResource` is essentially a wrapper for interacting with
     a `mongoengine` back-end. As such, it does not attempt to serialize or
-    prepare any data for back-end work. It will, however, aggressively
+    prepare any models for back-end work. It will, however, aggressively
     instantiate results into :class:`~Document` objects.
 
     As a final note, this class is designed to accept raw ``pymongo`` queries.
     Future versions are planned to accept higher level ``mongoengine`` options
     as well.
 
-    WARNING: The methods in this class implicitly trust whatever data you throw
-    at them. They were created with the assumption that user data will have
+    WARNING: The methods in this class implicitly trust whatever models you throw
+    at them. They were created with the assumption that user models will have
     already been parsed and sanitized at the view-level before it is passed
     back to lower-level systems. Do not shove untrusted queries into these
     methods.
@@ -48,7 +48,7 @@ class DocumentResource(index.IndexResource):
     def retrieve(self, fields=None):
         """
         Retrieves the target :class:`mongoengine.Document` from the collection.
-        If ``fields`` is set, will only load data for those fields. Raises
+        If ``fields`` is set, will only load models for those fields. Raises
         :class:`mongoengine.DoesNotExist` exception if nothing is found.
 
         :param fields: A list or tuple of explicitly desired field names
@@ -66,12 +66,12 @@ class DocumentResource(index.IndexResource):
     def update(self, data):
         """
         Updates the target :class:`mongoengine.Document` according to a nested
-        dictionary of data and returns the newly updated document. Raises
+        dictionary of models and returns the newly updated document. Raises
         corresponding :class:`mongoengine.DoesNotExist` and
         :class:`mongoengine.ValidationError` exceptions if the document cannot
-        be found or if the provided data fails back-end validation.
+        be found or if the provided models fails back-end validation.
 
-        :param data: A nested dictionary of data
+        :param data: A nested dictionary of models
         :return: An updated :class:`mongoengine.Document`
         """
         assert isinstance(data, dict)
@@ -104,15 +104,15 @@ class CollectionResource(index.IndexResource):
 
     :class:`~CollectionResource` is essentially a wrapper for interacting with
     a `mongoengine` back-end. As such, it does not attempt to serialize or
-    prepare any data for back-end work. It will, however, aggressively
+    prepare any models for back-end work. It will, however, aggressively
     instantiate results into :class:`~Document` objects.
 
     As a final note, this class is designed to accept raw `pymongo` queries.
     Future versions are planned to accept higher level `mongoengine` options
     as well.
 
-    WARNING: The methods in this class implicitly trust whatever data you throw
-    at them. They were created with the assumption that user data will have
+    WARNING: The methods in this class implicitly trust whatever models you throw
+    at them. They were created with the assumption that user models will have
     already been parsed and sanitized at the view-level before it is passed
     back to lower-level systems. Do not shove untrusted queries into these
     methods.
@@ -148,11 +148,11 @@ class CollectionResource(index.IndexResource):
     def create(self, data):
         """
         Creates a new :class:`mongoengine.Document` in the target collection
-        based on a nested dictionary of data. Raises
-        :class:`mongoengine.ValidationError` if the data provided fails back-end
+        based on a nested dictionary of models. Raises
+        :class:`mongoengine.ValidationError` if the models provided fails back-end
         validation.
 
-        :param data: A dictionary of new object data
+        :param data: A dictionary of new object models
         :return: A newly created MongoEngine document object
         """
         assert isinstance(data, dict)

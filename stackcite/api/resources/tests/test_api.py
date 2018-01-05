@@ -73,7 +73,7 @@ class APIDocumentTests(APIResourceTests):
         self.assertIsNone(result.number)
 
     def test_update_returns_updated_data(self):
-        """APIDocument.update() returns document with updated data
+        """APIDocument.update() returns document with updated models
         """
         data = {'name': 'Updated Document'}
         result = self.doc_resource.update(data)
@@ -180,7 +180,7 @@ class APICollectionTests(APIResourceTests):
         self.assertGreater(results.count(), 0)
 
     def test_retrieve_with_query_returns_correct_results(self):
-        """APICollection.retrieve() returns a queryset of accurate data with a valid query
+        """APICollection.retrieve() returns a queryset of accurate models with a valid query
         """
         testing.mock.utils.create_mock_data(save=True)
         query = {'fact': True}

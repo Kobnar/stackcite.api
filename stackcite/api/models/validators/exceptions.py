@@ -3,7 +3,7 @@ from stackcite.api import exceptions as exc
 
 class ValidationError(exc.StackciteError):
     """
-    A custom exception raised when data fails validation.
+    A custom exception raised when models fails validation.
     """
 
     _DEFAULT_MESSAGE = 'Validation failed'

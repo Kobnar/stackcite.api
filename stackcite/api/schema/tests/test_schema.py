@@ -61,14 +61,14 @@ class APIDocumentSchemaTests(unittest.TestCase):
         self.schema = schema.APIDocumentSchema(strict=True)
 
     def test_fields_loads(self):
-        """APIDocumentSchema.fields loads data
+        """APIDocumentSchema.fields loads models
         """
         payload = {'fields': 'name,number'}
         data, errors = self.schema.load(payload)
         self.assertIn('fields', data)
 
     def test_fields_does_not_dump(self):
-        """APIDocumentSchema.fields does not dump data
+        """APIDocumentSchema.fields does not dump models
         """
         payload = {'fields': ['name', 'number']}
         data, errors = self.schema.dump(payload)

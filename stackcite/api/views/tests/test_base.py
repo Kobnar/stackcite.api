@@ -9,7 +9,7 @@ class BaseViewTests(unittest.TestCase):
     def setUp(self):
         from pyramid import testing
         self.context = {'name': 'test_context'}
-        self.request = testing.DummyRequest({'data': 'test_request'})
+        self.request = testing.DummyRequest({'models': 'test_request'})
         from ..base import BaseView
         self.view = BaseView(self.context, self.request)
 
@@ -27,6 +27,6 @@ class BaseViewTests(unittest.TestCase):
         """
         try:
             request = self.view.request
-            self.assertEqual(request.params['data'], 'test_request')
+            self.assertEqual(request.params['models'], 'test_request')
         except AttributeError:
             self.fail('BaseView.request not set.')

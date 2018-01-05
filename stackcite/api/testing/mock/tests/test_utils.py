@@ -41,7 +41,7 @@ class CreateMockDataTestCase(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_create_mock_data_saves_data_to_database_if_specified(self):
-        """create_mock_data() saves data to the database if 'save=True'
+        """create_mock_data() saves models to the database if 'save=True'
         """
         expected = 3
         from ..utils import create_mock_data

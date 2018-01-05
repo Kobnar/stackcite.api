@@ -19,7 +19,7 @@ class MongoTestLayer(UnitTestLayer):
     """
     An integration test layer for working with a live MongoDB test database.
     Any tests performed within this layer will be able to connect with and
-    manipulate persistent data in MongoDB.
+    manipulate persistent models in MongoDB.
     """
 
     _IP = os.environ.get('MONGO_TEST_IP', 'http://127.0.0.1/')

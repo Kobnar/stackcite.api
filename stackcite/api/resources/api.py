@@ -37,7 +37,7 @@ def _get_params(query, params):
     of known defaults.
 
     NOTE: This function creates copies of the original dicts instead of
-        modifying the existing data structures
+        modifying the existing models structures
 
     :param query: A dictionary of document-level query parameters
     :param params: A dictionary of collection-level query parameters

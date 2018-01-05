@@ -113,7 +113,7 @@ class CollectionResourceTestCase(MockResourceTestCase):
         self.assertEqual(result.name, doc.name)
 
     def test_create_raises_raises_exception_if_data_is_invalid(self):
-        """CollectionResource.create() raises ValidationError if data is invalid
+        """CollectionResource.create() raises ValidationError if models is invalid
         """
         data = {'number': 'invalid integer'}
         from mongoengine import ValidationError
@@ -303,7 +303,7 @@ class DocumentResourceTestCase(MockResourceTestCase):
             bad_doc_rec.update(update)
 
     def test_update_raises_exception_if_data_is_invalid(self):
-        """DocumentResource.update() raises ValidationError with invalid data
+        """DocumentResource.update() raises ValidationError with invalid models
         """
         update = {'number': 'invalid number'}
         from mongoengine import ValidationError

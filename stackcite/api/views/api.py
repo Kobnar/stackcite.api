@@ -102,7 +102,7 @@ class APICollectionViews(base.BaseView):
 
     NOTE: Object serialization is handled by the traversal resource, not the
     view object. By the time the object is handled by the view object, it has
-    already been serialized into a nested dictionary representation of data.
+    already been serialized into a nested dictionary representation of models.
     """
 
     METHODS = {
@@ -113,7 +113,7 @@ class APICollectionViews(base.BaseView):
     @view_config(request_method='POST', permission='create')
     @managed_view
     def create(self):
-        """CREATE a new document using JSON data from the request body.
+        """CREATE a new document using JSON models from the request body.
 
         :return dict: A dictionary containing the new document's ``ObjectId``
         """
@@ -180,7 +180,7 @@ class APIDocumentViews(base.BaseView):
     @managed_view
     def update(self):
         """
-        UPDATE an individual document using JSON data from the request.
+        UPDATE an individual document using JSON models from the request.
 
         Raises ``404 NOT FOUND`` if the document does not exist or ``400 BAD
         REQUEST`` if there is some other problem with the request (e.g. schema

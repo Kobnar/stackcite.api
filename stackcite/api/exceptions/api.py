@@ -36,7 +36,7 @@ class APIDecodingError(APIBadRequest):
     Subclass of :class:`~APIBadReqeust` used to set a custom explanation for
     `ValueError` exceptions thrown because of JSON decoding errors.
     """
-    explanation = 'The server failed to decode the JSON data included with ' \
+    explanation = 'The server failed to decode the JSON models included with ' \
                   'the request.'
 
 
@@ -47,7 +47,7 @@ class APIValidationError(APIBadRequest):
     :class:`mongoengine.ValidationError` exceptions.
     """
     explanation = 'The server could not comply with the request because it ' \
-                  'contains invalid data.'
+                  'contains invalid models.'
 
 
 class APIForbidden(httpexceptions.HTTPForbidden):
@@ -63,7 +63,7 @@ class APIForbidden(httpexceptions.HTTPForbidden):
 class APIAuthenticationFailed(APIForbidden):
     """
     Subclass of :class:`~APIForbidden` used to set a custom explanation for
-    :class:`stackcite.data.AuthenticationError`.
+    :class:`stackcite.models.AuthenticationError`.
     """
     explanation = 'Authentication failed.'
 
@@ -94,7 +94,7 @@ class APINotUniqueError(APIConflict):
     :class:`mongoengine.NotUniqueError` exceptions.
     """
     explanation = 'The server could not comply with the request because it ' \
-                  'contains insufficiently unique data.'
+                  'contains insufficiently unique models.'
 
 
 class APIInternalServerError(httpexceptions.HTTPInternalServerError):

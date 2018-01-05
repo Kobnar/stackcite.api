@@ -97,7 +97,7 @@ class IDeserializable(object):
     def deserialize(self, data):
         """
         Deserializes a nested dictionary of values into a Python object. Can
-        also be used to update an existing document with new data.
+        also be used to update an existing document with new models.
 
         :param data: A nested dictionary of values
         """

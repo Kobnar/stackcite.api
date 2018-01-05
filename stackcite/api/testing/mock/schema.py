@@ -26,5 +26,5 @@ class MockDocumentSchema(schema.APICollectionSchema):
     @staticmethod
     def _validate_required_name_field(data):
         if 'name' not in data:
-            msg = 'Missing data for required field.'
+            msg = 'Missing models for required field.'
             raise ValidationError(msg, ['name'])

@@ -8,7 +8,7 @@ class LoadJSONFileTests(unittest.TestCase):
     layer = testing.layers.UnitTestLayer
 
     def test_loads_json_data(self):
-        """load_json_data() loads data from a json file
+        """load_json_data() loads models from a json file
         """
         import os
         directory = os.path.dirname(__file__)

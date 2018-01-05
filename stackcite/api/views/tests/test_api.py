@@ -165,7 +165,7 @@ class APICollectionViewsCreateTestCase(APICollectionViewsIntegrationTestCase):
             view.create()
 
     def test_create_invalid_data_raises_400_BAD_REQUEST(self):
-        """APICollectionViews.create() raises 400 BAD REQUEST if data fails validation
+        """APICollectionViews.create() raises 400 BAD REQUEST if models fails validation
         """
         view = self.make_view()
         invalid_data = {
@@ -264,7 +264,7 @@ class APICollectionViewsRetrieveTestCase(APICollectionViewsIntegrationTestCase):
         self.assertEqual(expected, result)
 
     def test_retrieve_schema_invalidation_raises_400_BAD_REQUEST(self):
-        """APICollectionViews.retrieve() raises 400 BAD REQUEST if data fails schema validation
+        """APICollectionViews.retrieve() raises 400 BAD REQUEST if models fails schema validation
         """
         view = self.make_view()
         invalid_query = {
@@ -299,7 +299,7 @@ class APIDocumentViewsIntegrationTestCase(
 class APIDocumentViewsRetrieveTestCase(APIDocumentViewsIntegrationTestCase):
 
     def test_retrieve_returns_correct_person(self):
-        """APIDocumentViews.retrieve() returns correct document data
+        """APIDocumentViews.retrieve() returns correct document models
         """
         documents = testing.mock.utils.create_mock_data(save=True)
         for doc in documents:
@@ -350,7 +350,7 @@ class APIDocumentViewsRetrieveTestCase(APIDocumentViewsIntegrationTestCase):
 class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
 
     def test_update_returns_changes(self):
-        """APIDocumentViews.update() returns updated Person data
+        """APIDocumentViews.update() returns updated Person models
         """
         # Build data:
         documents = testing.mock.utils.create_mock_data(save=True)
@@ -364,7 +364,7 @@ class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
             self.assertNotEqual(doc.fact, result['fact'])
 
     def test_update_changes_person(self):
-        """APIDocumentViews.update() changes Person data in MongoDB
+        """APIDocumentViews.update() changes Person models in MongoDB
         """
         # Build data:
         documents = testing.mock.utils.create_mock_data(save=True)
@@ -378,7 +378,7 @@ class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
             self.assertEqual(mongo_result.serialize(), view_result)
 
     def test_update_changes_only_one_person(self):
-        """APIDocumentViews.update() does not change any other data in MongoDB
+        """APIDocumentViews.update() does not change any other models in MongoDB
         """
         # Build data:
         documents = testing.mock.utils.create_mock_data(save=True)
@@ -417,7 +417,7 @@ class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
             view.update()
 
     def test_update_invalid_data_raises_400_BAD_REQUEST(self):
-        """APIDocumentViews.update() raises 400 BAD REQUEST if data fails validation
+        """APIDocumentViews.update() raises 400 BAD REQUEST if models fails validation
         """
         doc = testing.mock.utils.create_mock_data(1, save=True)[0]
         view = self.make_view(doc.id)
