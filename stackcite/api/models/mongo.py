@@ -1,7 +1,9 @@
 import mongoengine
 
+from . import utils
 
-class IEmbeddedDocument(mongoengine.EmbeddedDocument):
+
+class IEmbeddedDocument(mongoengine.EmbeddedDocument, utils.IDeserializable):
     """
     A common interface for all embedded documents.
     """
@@ -9,7 +11,7 @@ class IEmbeddedDocument(mongoengine.EmbeddedDocument):
     meta = {'abstract': True}
 
 
-class IDocument(mongoengine.Document):
+class IDocument(mongoengine.Document, utils.IDeserializable):
     """
     A common interface for all documents.
     """

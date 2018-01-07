@@ -71,14 +71,14 @@ class DocumentResource(index.IndexResource):
         :class:`mongoengine.ValidationError` exceptions if the document cannot
         be found or if the provided models fails back-end validation.
 
-        :param data: A nested dictionary of models
+        :param data: A dictionary of values for the document's interface
         :return: An updated :class:`mongoengine.Document`
         """
         assert isinstance(data, dict)
 
         document = DocumentResource.retrieve(self)
-        document.update(**data)
-        document.reload()
+        document.deserialize(data)
+        document.save()
         return document
 
     def delete(self):
@@ -152,12 +152,13 @@ class CollectionResource(index.IndexResource):
         :class:`mongoengine.ValidationError` if the models provided fails back-end
         validation.
 
-        :param data: A dictionary of new object models
+        :param data: A dictionary of values for the document's interface
         :return: A newly created MongoEngine document object
         """
         assert isinstance(data, dict)
 
-        document = self.collection(**data)
+        document = self.collection()
+        document.deserialize(data)
         document.save()
         return document
 

@@ -305,10 +305,11 @@ class DocumentResourceTestCase(MockResourceTestCase):
             bad_doc_rec.update(update)
 
     def test_update_raises_exception_if_data_is_invalid(self):
-        """DocumentResource.update() raises ValueError with invalid number
+        """DocumentResource.update() raises ValidationError with invalid number
         """
+        from mongoengine import ValidationError
         update = {'number': 'invalid_number'}
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValidationError):
             self.doc_rec.update(update)
 
     def test_delete_removes_from_mongodb(self):
