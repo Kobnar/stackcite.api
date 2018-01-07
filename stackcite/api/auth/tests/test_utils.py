@@ -13,92 +13,66 @@ class GenKeyTestCase(unittest.TestCase):
         self.assertEqual(56, len(result))
 
 
-class AuthUtilsBaseIntegrationTestCase(unittest.TestCase):
+class GetUserTests(unittest.TestCase):
 
-    layer = testing.layers.MongoTestLayer
+    layer = testing.layers.UnitTestLayer
 
     def setUp(self):
-        from stackcite import data as db
-        db.User.drop_collection()
-        db.AuthToken.drop_collection()
-        self.user = db.User.new('test@email.com', 'T3stPa$$word', save=True)
-        self.token = db.AuthToken.new(self.user, save=True)
-
-
-class GetAuthTokenIntegrationTestCase(AuthUtilsBaseIntegrationTestCase):
-
-    def test_get_token_returns_correct_token(self):
         from pyramid.testing import DummyRequest
-        from ..utils import get_token
-        key = self.token.key
-        request = DummyRequest()
-        request.authorization = 'Key', key
-        result = get_token(request)
-        self.assertEqual(self.token, result)
+        self.request = DummyRequest()
 
-    def test_invalid_key_returns_none(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_token
-        request = DummyRequest()
-        request.authorization = 'Key', 'invalid_key'
-        result = get_token(request)
-        self.assertIsNone(result)
-
-    def test_invalid_auth_type_returns_none(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_token
-        key = self.token.key
-        request = DummyRequest()
-        request.authorization = 'Invalid', key
-        request.token = get_token(request)
-        result = get_token(request)
-        self.assertIsNone(result)
-
-    def test_basic_auth_type_returns_none(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_token
-        key = self.token.key
-        request = DummyRequest()
-        request.authorization = 'Basic', key
-        result = get_token(request)
-        self.assertIsNone(result)
-
-    def test_deleted_user_does_not_raise_exception(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_token
-        key = self.token.key
-        request = DummyRequest()
-        request.authorization = 'Key', key
-        self.user.delete()
-        from mongoengine import InvalidDocumentError
-        try:
-            get_token(request)
-        except InvalidDocumentError as err:
-            msg = 'Unexpected exception raised: {}'.format(err)
-            self.fail(msg=msg)
-
-
-class GetUserIntegrationTestCase(AuthUtilsBaseIntegrationTestCase):
-
-    def test_get_user_returns_correct_user(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_user
-        key = self.token.key
-        request = DummyRequest()
-        request.authorization = 'Key', key
-        request.token = self.token
-        result = get_user(request)
-        self.assertEqual(self.user, result)
-
-
-class GetGroupsIntegrationTestCase(AuthUtilsBaseIntegrationTestCase):
-
-    def test_get_groups_returns_groups(self):
-        from pyramid.testing import DummyRequest
-        from ..utils import get_user, get_groups
-        expected = self.user.groups
-        user_id = self.user.id
-        request = DummyRequest()
-        request.user = self.user
-        result = get_groups(user_id, request)
+    def test_returns_session_user_with_id(self):
+        """get_user() returns a SessionUser with a valid ID
+        """
+        from bson import ObjectId
+        import json
+        from stackcite.api import auth
+        expected = str(ObjectId())
+        data = {'id': expected, 'groups': auth.GROUPS}
+        self.request.authorization = ('user', json.dumps(data))
+        from .. import utils
+        result = utils.get_user(self.request).id
         self.assertEqual(expected, result)
+
+    def test_returns_session_user_with_groups(self):
+        """get_user() returns a SessionUser with a valid list of groups
+        """
+        from bson import ObjectId
+        import json
+        from stackcite.api import auth
+        expected = auth.GROUPS
+        data = {'id': str(ObjectId()), 'groups': auth.GROUPS}
+        self.request.authorization = ('user', json.dumps(data))
+        from .. import utils
+        result = utils.get_user(self.request).groups
+        self.assertEqual(expected, result)
+
+    def test_unset_authorization_header_returns_none(self):
+        """get_user() returns None if authorization header is not set
+        """
+        from .. import utils
+        self.request.authorization = ('', '')
+        result = utils.get_user(self.request)
+        self.assertEqual(None, result)
+
+    def test_invalid_objectid_returns_none(self):
+        """get_user() returns None if user ID is invalid
+        """
+        import json
+        from stackcite.api import auth
+        data = {'id': 'invalid_id', 'groups': auth.GROUPS}
+        self.request.authorization = ('user', json.dumps(data))
+        from .. import utils
+        result = utils.get_user(self.request)
+        self.assertEqual(None, result)
+
+    def test_invalid_groups_returns_none(self):
+        """get_user() returns None if user groups are invalid
+        """
+        from bson import ObjectId
+        import json
+        data = {'id': str(ObjectId()), 'groups': ['cats']}
+        self.request.authorization = ('user', json.dumps(data))
+        from .. import utils
+        result = utils.get_user(self.request)
+        self.assertEqual(None, result)

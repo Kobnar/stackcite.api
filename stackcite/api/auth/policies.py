@@ -28,7 +28,7 @@ class AuthTokenAuthenticationPolicy(CallbackAuthenticationPolicy):
         does not exist, method returns `None`.
         """
         if request.user:
-            return str(request.user.id)
+            return request.user.id
 
     def effective_principals(self, request):
         """

@@ -1,11 +1,11 @@
 import os
 import hashlib
-import mongoengine
+import json
 
-from mongoengine import context_managers, InvalidDocumentError
+from stackcite.api.validators.oids import validate_objectid
+from stackcite.api.validators.groups import validate_group
 
-# from stackcite import data as db
-from stackcite.api.validators import keys
+from . import models
 
 
 def gen_key():
@@ -15,36 +15,18 @@ def gen_key():
     return hashlib.sha224(os.urandom(128)).hexdigest()
 
 
-def get_token(request):
-    """
-    Returns a token key from the request authorization header. The header must
-    take the following form:
-
-    `Authentication: key [token]`
-    """
-
-    try:
-        auth_type, key = request.authorization
-        if auth_type.lower() == 'key' and keys.validate_key(key):
-            token = None
-            # token = db.AuthToken.objects.get(_key=key)
-            return token
-    except (ValueError, TypeError, InvalidDocumentError):
-        return None
-
-
 def get_user(request):
     """
     Returns a user based on an API key located in the request header.
     """
 
-    try:
-        if request.token:
-            with context_managers.no_dereference(request.token) as token:
-                # TODO: Use a SessionUser object
-                return token.user
-    except (ValueError, TypeError, mongoengine.DoesNotExist):
-        return None
+    auth_type, auth_data = request.authorization
+    if auth_type.lower() == 'user':
+        auth_data = json.loads(auth_data)
+        valid_id = validate_objectid(auth_data['id'])
+        valid_groups = [g for g in auth_data['groups'] if validate_group(g)] == auth_data['groups']
+        if valid_id and valid_groups:
+            return models.SessionUser(**auth_data)
 
 
 def get_groups(user_id, request):

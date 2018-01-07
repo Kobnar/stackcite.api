@@ -1,6 +1,6 @@
 from stackcite.api.config import auth as _auth
 
-from .utils import gen_key, get_token, get_user
+from .utils import gen_key, get_user
 from .policies import AuthTokenAuthenticationPolicy
 
 

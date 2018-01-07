@@ -16,20 +16,19 @@ class AuthPolicyIntegrationTestCase(unittest.TestCase):
     layer = testing.layers.MongoTestLayer
 
     def setUp(self):
-        from stackcite import data as db
-        from ..policies import AuthTokenAuthenticationPolicy
-        self.auth_pol = AuthTokenAuthenticationPolicy()
-        db.User.drop_collection()
-        db.AuthToken.drop_collection()
-        self.user = db.User.new('test@email.com', 'T3stPa$$word', save=True)
-        self.token = db.AuthToken.new(self.user, save=True)
+        from .. import policies
+        from .. import models
+        from bson import ObjectId
+        from stackcite.api import auth
+        self.auth_pol = policies.AuthTokenAuthenticationPolicy()
+        self.user = models.SessionUser(str(ObjectId()), [auth.USERS])
 
     def test_authenticated_userid_returns_user_id(self):
         """AuthTokenAuthenticationPolicy.authenticated_userid() returns an authenticated ObjectId
         """
         from pyramid.testing import DummyRequest
         request = DummyRequest()
-        expected = str(self.user.id)
+        expected = self.user.id
         request.user = self.user
         result = self.auth_pol.authenticated_userid(request)
         self.assertEqual(expected, result)
@@ -40,7 +39,7 @@ class AuthPolicyIntegrationTestCase(unittest.TestCase):
         from pyramid.testing import DummyRequest
         request = DummyRequest()
         request.user = self.user
-        expected = str(self.user.id)
+        expected = self.user.id
         result = self.auth_pol.effective_principals(request)
         self.assertIn(expected, result)
 

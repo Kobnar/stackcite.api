@@ -11,11 +11,3 @@ class SessionUser(Schema):
     groups = mm_fields.List(
         mm_fields.String(validate=lambda g: g in GROUPS),
         required=True)
-
-
-class AuthToken(Schema):
-
-    key = api_fields.AuthTokenKeyField(required=True)
-    user = mm_fields.Nested(SessionUser, required=True)
-    issued = mm_fields.DateTime()
-    touched = mm_fields.DateTime()
