@@ -27,15 +27,3 @@ class MockDocument(models.IDocument):
             }
         ]
     }
-
-    def _serialize(self, fields=()):
-        return {
-            'id': str(self.id) if self.id else None,
-            'name': self.name,
-            'number': self.number,
-            'fact': self.fact
-        }
-
-    def _deserialize(self, data):
-        for key, value in data.items():
-            setattr(self, key, value)
