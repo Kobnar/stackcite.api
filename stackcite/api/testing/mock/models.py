@@ -13,6 +13,7 @@ class MockDocument(models.IDocument):
     :cvar number: An arbitrary integer value.
     :cvar fact: An arbitrary boolean value.
     """
+
     name = mongoengine.StringField(required=True, unique=True)
     number = mongoengine.IntField()
     fact = mongoengine.BooleanField()

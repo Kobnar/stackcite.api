@@ -10,7 +10,7 @@ class MockDocumentSchemaTests(unittest.TestCase):
         return schema
 
 
-class CreateMockDocumentSchema(MockDocumentSchemaTests):
+class CreateMockDocumentSchemaTests(MockDocumentSchemaTests):
 
     def setUp(self):
         self.schema = self.make_schema(method='POST')
@@ -23,13 +23,13 @@ class CreateMockDocumentSchema(MockDocumentSchemaTests):
         self.assertIn('name', errors.keys())
 
 
-class RetrieveMockDocumentSchema(MockDocumentSchemaTests):
+class RetrieveMockDocumentSchemaTests(MockDocumentSchemaTests):
 
     def setUp(self):
         self.schema = self.make_schema(method='GET')
 
 
-class UpdateMockDocumentSchema(MockDocumentSchemaTests):
+class UpdateMockDocumentSchemaTests(MockDocumentSchemaTests):
 
     def setUp(self):
         self.schema = self.make_schema(method='PUT')
@@ -42,3 +42,34 @@ class UpdateMockDocumentSchema(MockDocumentSchemaTests):
             'unknown': 'field'}
         result, errors = self.schema.load(data)
         self.assertNotIn('unknown', result.keys())
+
+
+class MockDocumentSchemaIntegrationTests(MockDocumentSchemaTests):
+
+    def test_schema_loads_data(self):
+        """MockDocumentSchema loads all MockDocument data
+        """
+        data = {
+            'name': 'Test Document',
+            'number': 42,
+            'fact': True}
+        schm = self.make_schema()
+        doc = schm.load(data).data
+        for key, expected in data.items():
+            result = doc[key]
+            self.assertEqual(expected, result)
+
+    def test_schema_dumps_data(self):
+        """MockDocumentSchema dumps a MockDocument object
+        """
+        expected = {
+            'name': 'Test Document',
+            'number': 42,
+            'fact': True}
+        from .. import models
+        doc = models.MockDocument(**expected)
+        schm = self.make_schema()
+        data = schm.dump(doc).data
+        for key, expected in data.items():
+            result = getattr(doc, key)
+            self.assertEqual(expected, result)

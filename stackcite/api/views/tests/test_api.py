@@ -105,6 +105,7 @@ class APICollectionViewsCreateTestCase(APICollectionViewsIntegrationTestCase):
         """
         docs = testing.mock.utils.create_mock_data()
         view = self.make_view()
+        schm = testing.mock.MockDocumentSchema()
         for doc in docs:
             data = {
                 'name': doc.name,
@@ -112,7 +113,7 @@ class APICollectionViewsCreateTestCase(APICollectionViewsIntegrationTestCase):
                 'fact': doc.fact}
             view.request.json_body = data
             result = view.create()
-            expected = doc.serialize()
+            expected = schm.dump(doc).data
             expected['id'] = result['id']
             self.assertEqual(expected, result)
 
@@ -228,8 +229,9 @@ class APICollectionViewsRetrieveTestCase(APICollectionViewsIntegrationTestCase):
         view = self.make_view()
         view.request.params = {}
         results = view.retrieve()['items']
+        schm = testing.mock.MockDocumentSchema()
         for idx, result in enumerate(results):
-            expected = docs[idx].serialize()
+            expected = schm.dump(docs[idx]).data
             expected['id'] = result['id']
             self.assertEqual(expected, result)
 
@@ -302,12 +304,14 @@ class APIDocumentViewsRetrieveTestCase(APIDocumentViewsIntegrationTestCase):
         """APIDocumentViews.retrieve() returns correct document models
         """
         documents = testing.mock.utils.create_mock_data(save=True)
+        schm = testing.mock.MockDocumentSchema()
         for doc in documents:
             view = self.make_view(doc.id)
             # Work around missing default schema:
             view.request.params = {}
+            expected = schm.dump(doc).data
             result = view.retrieve()
-            self.assertEqual(doc.serialize(), result)
+            self.assertEqual(expected, result)
 
     def test_retrieve_filters_fields(self):
         """APIDocumentViews.retrieve() filters explicitly named fields
@@ -368,6 +372,7 @@ class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
         """
         # Build data:
         documents = testing.mock.utils.create_mock_data(save=True)
+        schm = testing.mock.MockDocumentSchema()
         for doc in documents:
             # Build view:
             view = self.make_view(doc.id)
@@ -375,7 +380,8 @@ class APIDocumentViewsUpdateTestCase(APIDocumentViewsIntegrationTestCase):
             # Update and compare to direct query:
             view_result = view.update()
             mongo_result = testing.mock.MockDocument.objects.get(id=doc.id)
-            self.assertEqual(mongo_result.serialize(), view_result)
+            expected = schm.dump(mongo_result).data
+            self.assertEqual(expected, view_result)
 
     def test_update_changes_only_one_person(self):
         """APIDocumentViews.update() does not change any other models in MongoDB

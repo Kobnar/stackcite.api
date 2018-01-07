@@ -110,8 +110,14 @@ class APIDocumentTests(APIResourceTests):
         with self.assertRaises(DoesNotExist):
             testing.mock.MockDocument.objects.get(id=self.doc.id)
 
-    def test_schema_returns_parent_schema_instance(self):
-        """APIDocument.schema() returns instance of parent schema
+    def test_schema_returns_schema_instance(self):
+        """APIDocument.schema() returns instance of own schema
+        """
+        schm = self.doc_resource.schema()
+        self.assertIsInstance(schm, testing.mock.MockDocumentSchema)
+
+    def test_schema_returns_parent_schema_instance_if_not_set(self):
+        """APIDocument.schema() returns instance of parent schema if own schema not set
         """
         schm = self.doc_resource.schema()
         self.assertIsInstance(schm, testing.mock.MockDocumentSchema)

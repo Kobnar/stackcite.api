@@ -22,34 +22,6 @@ class MockDocumentIntegrationTestCase(unittest.TestCase):
         with self.assertRaises(NotUniqueError):
             doc_1.save()
 
-    def test_serialize_returns_proper_dict(self):
-        """MockDocument.serialize() returns a proper dict
-        """
-        from ..models import MockDocument
-        doc = MockDocument(name='Document', number=42, fact=True)
-        doc.save()
-        expected = {
-            'id': str(doc.id),
-            'name': 'Document',
-            'number': 42,
-            'fact': True}
-        result = doc.serialize()
-        self.assertEqual(expected, result)
-
-    def test_deserialize_sets_all_values(self):
-        """MockDocument.deserialize() sets all values in dict
-        """
-        data = {
-            'name': 'Document',
-            'number': 42,
-            'fact': True}
-        from ..models import MockDocument
-        doc = MockDocument()
-        doc.deserialize(data)
-        for k, expected in data.items():
-            result = getattr(doc, k)
-            self.assertEqual(expected, result)
-
     def test_allow_inheritance(self):
         """MockDocument allows inheritance
         """

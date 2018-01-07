@@ -118,7 +118,7 @@ class APICollectionViews(base.BaseView):
         :return dict: A dictionary containing the new document's ``ObjectId``
         """
         data = self.request.json_body
-        schm = self.context.schema(strict=True)
+        schm = self.context.schema(strict=True, exclude=('limit', 'skip'))
         data = schm.load(data).data
         doc = self.context.create(data)
         result = schm.dump(doc).data
@@ -168,7 +168,7 @@ class APIDocumentViews(base.BaseView):
         :return: A serialized version of the document
         """
         query = self.request.params
-        schm = self.context.schema(strict=True)
+        schm = self.context.schema(strict=True, exclude=('limit', 'skip'))
         query = schm.load(query).data
         query, params = self.context.get_params(query)
         doc = self.context.retrieve(**params)
@@ -189,7 +189,7 @@ class APIDocumentViews(base.BaseView):
         :return: A serialized version of the updated document
         """
         data = self.request.json_body
-        schm = self.context.schema(strict=True)
+        schm = self.context.schema(strict=True, exclude=('limit', 'skip'))
         data = schm.load(data).data
         result = self.context.update(data)
         result = schm.dump(result).data

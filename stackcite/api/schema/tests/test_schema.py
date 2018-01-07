@@ -52,38 +52,6 @@ class APISchemaTests(unittest.TestCase):
             self.fail(err)
 
 
-class APIDocumentSchemaTests(unittest.TestCase):
-
-    layer = testing.layers.UnitTestLayer
-
-    def setUp(self):
-        from .. import schema
-        self.schema = schema.APIDocumentSchema(strict=True)
-
-    def test_fields_loads(self):
-        """APIDocumentSchema.fields loads models
-        """
-        payload = {'fields': 'name,number'}
-        data, errors = self.schema.load(payload)
-        self.assertIn('fields', data)
-
-    def test_fields_does_not_dump(self):
-        """APIDocumentSchema.fields does not dump models
-        """
-        payload = {'fields': ['name', 'number']}
-        data, errors = self.schema.dump(payload)
-        self.assertNotIn('fields', data)
-
-    def test_fields_loads_list_of_strings(self):
-        """APIDocumentSchema.fields parses a string of field names into a list
-        """
-        payload = {'fields': 'name,number'}
-        data, errors = self.schema.load(payload)
-        expected = ['name', 'number']
-        result = data['fields']
-        self.assertListEqual(expected, result)
-
-
 class APICollectionSchemaTests(unittest.TestCase):
 
     layer = testing.layers.UnitTestLayer
@@ -92,9 +60,6 @@ class APICollectionSchemaTests(unittest.TestCase):
         self.schema = testing.mock.MockDocumentSchema()
         from .. import schema
         assert isinstance(self.schema, schema.APICollectionSchema)
-
-
-class APICollectionSchemaLoadTests(APICollectionSchemaTests):
 
     def test_collection_load_q(self):
         """APICollectionSchema.load() deserializes a query string (collection-level)
@@ -137,24 +102,12 @@ class APICollectionSchemaLoadTests(APICollectionSchemaTests):
         """APICollectionSchema.load() deserializes a list of field names (collection-level)
         """
         expected = ['name.full', 'birth']
-        query = {'fields': ','.join([f.replace('.', '__') for f in expected])}
+        query = {'fields': 'name__full,birth'}
         data, errors = self.schema.load(query)
         result = data['fields']
         self.assertEqual(result, expected)
 
-    def test_document_load_fields(self):
-        """APICollectionSchema.load() deserializes a list of field names (document-level)
-        """
-        expected = ['name.full', 'birth']
-        query = {'fields': ','.join([f.replace('.', '__') for f in expected])}
-        data, errors = self.schema.load(query)
-        result = data['fields']
-        self.assertEqual(result, expected)
-
-
-class APICollectionSchemaDumpTests(APICollectionSchemaTests):
-
-    def test_list_dumps_into_list(self):
+    def test_collection_dumps_into_list(self):
         """APICollectionSchema.dump() serializes a list of documents if many=True
         """
         expected = [
@@ -197,8 +150,12 @@ class APICollectionSchemaDumpTests(APICollectionSchemaTests):
         result, errors = self.schema.dump(doc, many=False)
         self.assertEqual(result, expected)
 
-
-class APICollectionSchemaLoadTestsLegacy(APICollectionSchemaTests):
+    def test_does_not_dump_fields(self):
+        """APICollectionSchema.dump() does not serialize fields
+        """
+        payload = {'fields': ['name', 'number']}
+        data, errors = self.schema.dump(payload)
+        self.assertNotIn('fields', data)
 
     def test_returns_q(self):
         """APICollectionSchema.q loads a query string
